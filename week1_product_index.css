@@ -1,0 +1,44 @@
+* {
+    font-family: 'Gothic A1', sans-serif;
+}
+
+.wrap {
+    width: 500px;
+    margin: auto;
+}
+
+.img {
+    background-image: url("https://www.shinsegaegroupinside.com/wp-content/uploads/2020/04/본문_700_이마트-4.png");
+    background-size: cover;
+    background-position: center;
+    width: 500px;
+    height: 300px;
+}
+
+h2, h6 {
+    display: inline;
+}
+
+
+.explanation {
+    margin-top: 10px;
+    text-align: justify;
+}
+
+.ordersection {
+    margin-top: 30px;
+    text-align: left;
+}
+
+.parameters {
+    text-align: left;
+}
+
+.order {
+    margin-top: 20px;
+    text-align: center;
+}
+
+.info-temp {
+    color: blue;
+}
