@@ -7,12 +7,10 @@ from pymongo import MongoClient
 client = MongoClient('localhost', 27017)
 db = client.dbhomework
 
-
 ## HTML 화면 보여주기
 @app.route('/')
 def homework():
     return render_template('week4_index.html')
-
 
 # 주문하기(POST) API
 @app.route('/order', methods=['POST'])
@@ -23,10 +21,10 @@ def save_order():
     phone_receive = request.form['phone_give']
 
     info = {
-        'name' : name_receive,
-        'amount' : amount_receive,
-        'address' : address_receive,
-        'phone' : phone_receive
+        'name': name_receive,
+        'amount': amount_receive,
+        'address': address_receive,
+        'phone': phone_receive
     }
 
     db.infos.insert_one(info)
