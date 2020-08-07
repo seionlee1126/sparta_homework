@@ -27,23 +27,37 @@
 
         <script>
             function order() {
-                let o_name = $('#order-name').val();
-                let o_amount = $('#order-amount').val();
-                let o_address = $('#order-address').val();
-                let o_phone = $('#order-phone').val();
+                let name = $('#order-name').val();
+                let amount = $('#order-amount').val();
+                let address = $('#order-address').val();
+                let phone = $('#order-phone').val();
 
-                if (o_name == "") {
+                if (name == "") {
                     alert("이름을 작성해주세요.");
-                } else if (o_amount == "") {
+                } else if (amount == "") {
                     alert("수량을 선택해주세요.");
-                } else if (o_address == "") {
+                } else if (address == "") {
                     alert("주소를 작성해주세요.");
-                } else if (o_phone == "") {
+                } else if (phone == "") {
                     alert("전화번호를 작성해주세요.");
                 } else {
                     alert("주문이 완료되었습니다!");
-                    tempHtml = `<tr> <td>${o_name}</td> <td>${o_amount}</td> <td>${o_address}</td> <td>${o_phone}</td> </tr>`;
-                    $('#orders-box').append(tempHtml);
+                    $.ajax({
+                        type: "POST",
+                        url: "/order",
+                        data: {
+                            'name_give': name,
+                            'amount_give': amount,
+                            'address_give': address,
+                            'phone_give': phone
+                        },
+                        success: function (response) {
+                            if (response["result"] == "success") {
+                                alert("성공적으로 등록되었습니다.");
+                                window.location.reload();
+                            }
+                        }
+                    })
                 }
             }
 
@@ -60,7 +74,36 @@
                         $('#exchangerate').append(moneyrate);
                     }
                 })
+
+                $.ajax({
+                    type: "GET",
+                    url: "/order",
+                    data: {},
+                    success: function (response) {
+                        if (response["result"] == "success") {
+                            let info_list = response['info_list'];
+                            for (let i = 0; i < info_list.length; i++) {
+                                let name = info_list[i]['name'];
+                                let amount = info_list[i]['amount'];
+                                let address = info_list[i]['address'];
+                                let phone = info_list[i]['phone'];
+
+                                let temp_html = `
+                                <tr>
+                                <td>${name}</td>
+                                <td>${amount}</td>
+                                <td>${address} </td>
+                                <td>${phone} </td>
+                                </tr>`;
+
+                                $('#orders-box').append(temp_html);
+                            }
+                        }
+                    }
+                })
             });
+
+
         </script>
 
     </head>
